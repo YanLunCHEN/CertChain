@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.17;
+pragma experimental ABIEncoderV2;
 contract CertChainContract {
-    string storedData;
+    //string storedData;
     address private owner; // variable that will contain the address of the contract deployer
     event OwnerSet(address indexed oldOwner, address indexed newOwner);
     constructor() {
@@ -17,7 +18,7 @@ contract CertChainContract {
         _;
     }
     modifier onlyAdmin() {
-        require(verifyUser(msg.sender), "Ownable: caller is not the Admin");
+        require(verifyUser(msg.sender) || msg.sender == owner, "Ownable: caller is not the Admin or Owner");
         _;
     }
     function changeOwner(address newOwner) public onlyOwner {
@@ -64,24 +65,25 @@ contract CertChainContract {
     string[] private email;
     
     struct data_struct {
-        bytes hash;
+        string signedData;
 
     }
-    function set(bytes memory data,string memory _email) public onlyAdmin{
+    function set(string memory data,string memory _email) public onlyAdmin{
         email.push(_email);
         
-        cert_data[_email].hash = data;
+        cert_data[_email].signedData = data;
     }
-    function set_list(bytes[] memory datas,string[] memory email_list) public onlyAdmin{
+    function set_list(string[] memory datas,string[] memory email_list) public onlyAdmin{
+        
         for(uint i=0;i<datas.length;i++){
             email.push(email_list[i]);
             
-            cert_data[email_list[i]].hash = datas[i];
+            cert_data[email_list[i]].signedData = datas[i];
         }
         
     }
-    function get(string memory _email) public view returns (bytes memory) {
-        return cert_data[_email].hash;
+    function get(string memory _email) public view returns (string memory) {
+        return cert_data[_email].signedData;
     }
 
     function update() public view onlyOwner{
