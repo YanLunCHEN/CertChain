@@ -85,7 +85,7 @@ function Institution() {
         <Button size="large" onClick={clickMe}>
           查看個人資料
         </Button>
-      <Upload {...props}>
+      <Upload maxCount={1} accept=".csv"{...props}>
         <Button size="large" >
           <UploadOutlined /> 證書上鏈
         </Button>

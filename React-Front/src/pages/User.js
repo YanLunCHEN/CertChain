@@ -127,8 +127,9 @@ function User() {
           查詢證書
         </Button>
         <Button size="large" onClick={clickMe}>
-          申請證書
+          分享證書
         </Button>
+        
         
         <GoogleLogout
                     render={renderProps => (
