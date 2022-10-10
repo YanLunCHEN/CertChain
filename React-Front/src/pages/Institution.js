@@ -28,6 +28,7 @@ const props = {
   },
 
   onChange(info) {
+    console.log(info.file.status)
     if (info.file.status !== 'uploading') {
       console.log(info.file, info.fileList);
     }
@@ -80,9 +81,7 @@ function Institution() {
           : <Navigate to="/"/>
       }  
       <Space size="large">
-        <Button size="large" onClick={clickMe}>
-          查看證書
-        </Button>
+        
         <Button size="large" onClick={clickMe}>
           查看個人資料
         </Button>
@@ -91,14 +90,8 @@ function Institution() {
           <UploadOutlined /> 證書上鏈
         </Button>
       </Upload>
-      <Upload {...props}>
-        <Button size="large" onClick={clickMe}>
-          <UploadOutlined /> 上傳公開金鑰
-        </Button>
-      </Upload>
-        <Button size="large" onClick={clickMe}>
-          哪些人有權限看個資
-        </Button>
+      
+       
         <Button size="large" onClick={onSignoutSuccess}>
           登出
         </Button>

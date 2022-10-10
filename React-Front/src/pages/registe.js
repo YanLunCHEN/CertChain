@@ -2,12 +2,29 @@ import { Layout } from 'antd';
 import React from 'react';
 import { Button, Form, Input } from 'antd';
 import { Typography } from 'antd';
+import {axios_ins} from '../Axios'
+import {  useNavigate } from 'react-router-dom';
 const { Content } = Layout;
 const { Title } = Typography;
-
+const axios = axios_ins();
 
 const Registe = () => {
+  const navigate = useNavigate();
   const onFinish = (values) => {
+    axios.post('/registe',{
+      RepresentInstitution : values.RepresentInstitution,
+      ContactPerson: values.ContactPerson,
+      ContactEmail: values.ContactEmail,
+      ContactPhone: values.ContactPhone
+
+  }).then((res) => {
+    console.log(res.data)
+    navigate('/')
+  })
+  .catch((err) => {
+    console.log(err)
+    
+  });
     console.log('Success:', values);
   };
 
@@ -43,7 +60,7 @@ const Registe = () => {
     >
       <Form.Item
         label="代表機構單位"
-        name="Represent Institution"
+        name="RepresentInstitution"
         rules={[
           {
             required: true,
@@ -56,7 +73,7 @@ const Registe = () => {
 
       <Form.Item
         label="聯絡人姓名"
-        name="Contact Person"
+        name="ContactPerson"
         rules={[
           {
             required: true,
@@ -69,7 +86,7 @@ const Registe = () => {
 
       <Form.Item
         label="聯絡人電子信箱"
-        name="Contact Email"
+        name="ContactEmail"
         rules={[
           {
             required: true,
@@ -82,7 +99,7 @@ const Registe = () => {
 
       <Form.Item
         label="聯絡人電話"
-        name="Contact Phone"
+        name="ContactPhone"
         rules={[
           {
             required: true,

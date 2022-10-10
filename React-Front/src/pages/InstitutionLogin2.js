@@ -30,17 +30,17 @@ const App = () => {
       return /\S/.test(pwd);
     }
     const onLoginSuccess = () => {
-      /*if(!isValidEmail(user)){
+      if(!isValidEmail(user)){
         alert("You Email is invalid!");
         return false
-      }*/
+      }
       if(!isValidPasswd(pwd)){
         alert("You passwd is invalid!");
         return false
       }
       console.log("click")
       axios.post('/SignInIns',{
-        email : 'chenallen5859@gmail.com',
+        email : user,
         passwd  : pwd
       })
       .then((res) => {

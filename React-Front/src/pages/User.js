@@ -57,8 +57,8 @@ function User() {
   const accessToken = null;
   if(!accessToken){
     axios.get('/getAccessToken').then(resp => {
-      //console.log('acctoken = '+resp.data);
       accessToken=resp.data;
+      console.log('acctoken = '+accessToken);
     })
     .catch((err)=>{
       //console.log("err:"+err);
@@ -92,16 +92,20 @@ function User() {
     axios.post('/get_my_certificate',{
       access_token : accessToken,
 
-  }).then((res) => {console.log(res.data)})
+  }).then((res) => {
+    console.log(res.json)
+    /*if(res.data){
+      this.cert_data = res.data
+      setCertificate(!showCertificate)
+    }*/
+  })
   .catch((err) => {
     console.log(err)
     
   }); 
     
   }
-  function Welcome() {
-    setCertificate(!showCertificate)
-  }
+
 
   return (
     
@@ -116,7 +120,7 @@ function User() {
       <br/>
     <Space size="large">
         
-        <Button size="large" onClick={Welcome}>
+        <Button size="large" onClick={getMyCertificate}>
           我的證書
         </Button>
         <Button size="large" onClick={getOthersCert}>
