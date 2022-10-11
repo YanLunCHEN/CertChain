@@ -63,7 +63,7 @@ const App = () => {
       {
 
         console.log(err)
-        //alert("Server error!");
+        alert("Server error!");
         return false
       }); 
       
