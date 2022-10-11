@@ -42,11 +42,13 @@ function UserLogin() {
     setloginstatus(true)
 };
 axios.get('/GetServerStatus').then((res)=>{
-  if(res.json.status==="success"){
+  //console.log(res.data.status)
+  if(res.data.status==="success"){
+    //console.log(res)
     setShowloginButton(true);
   }
 })
-.catch(err=>{console.log("Server Error")}); 
+.catch(err=>{console.log("Server Error:"+err)}); 
 const onSignoutSuccess = () => {
   alert("You have been logged out successfully");
   //console.clear();
