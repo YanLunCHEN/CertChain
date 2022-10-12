@@ -9,7 +9,28 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     return render_template('index.html')
-@app.route("/verify")
+@app.route('/verify', methods=['POST'])
+def verify():
+    if request.method == 'POST':
+        try:
+            publickey = request.get_json().get('publickey')
+            file_data = request.get_json().get('file_data')
+            signature = request.get_json().get('signature')
+        except AttributeError as err:
+            return jsonify({'status': 'fail','error':err})
+        except Exception as e:
+            return jsonify({'status': 'fail','error': e})
+        pubkey = RSA.import_key(publickey)
+        hash = SHA256.new(file_data.encode('utf-8'))
+        print(signature)
+        print("hash v: ",hash.digest().hex())
+        verifier = PKCS115_SigScheme(pubkey)
+        try:
+            verifier.verify(hash, bytes.fromhex(signature))
+            return jsonify({'status': 'success','data':'true'})
+        except:
+            return jsonify({'status': 'success','data':'false'})
+'''@app.route("/verify")
 def verify():
     signature = request.args.get('signature', default = "", type = str)
     cert_buf = request.args.get('cert_buf', default = "", type = str)
@@ -31,7 +52,7 @@ def verify():
 @app.route("/verify_ins")
 def verify_ins():
     return "hi"
-
+'''
 @app.route('/verify_inst', methods=['POST'])
 def verify_inst():
     if request.method == 'POST':

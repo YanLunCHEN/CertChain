@@ -2,7 +2,7 @@
 import './App.css';
 
 import {GoogleLogout ,GoogleLogin} from "react-google-login";
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import { Layout } from 'antd';
 import { Navigate} from "react-router-dom";
 import '../logininfo.js';
@@ -20,6 +20,8 @@ function UserLogin() {
   const [showlogoutButton, setShowlogoutButton] = useState(false);
   const [showloginstatus, setloginstatus] = useState(global.userlogininfo.statas)
   const [accessToken, setaccessToken] = useState();
+  
+
   const onLoginSuccess = (res) => {
     //console.log('Login Success:', res.profileObj);
     //console.log('access_token:', res.getAuthResponse(true).access_token);
@@ -33,22 +35,35 @@ function UserLogin() {
       access_token: res.getAuthResponse(true).access_token
     })
     //.then(console.log( Data2))
-    .then((res) => {console.log(res.status)})
+    .then((res) => {console.log("login  ",res.status)
+    if(res.status===200){
+      global.userlogininfo.statas = true
+      setShowloginButton(false);
+      setloginstatus(true)
+    }
+  
+    })
     .catch(err=>{console.log("err")}); 
     //axios-end 
-    global.userlogininfo.statas = true
-    setShowloginButton(false);
-    setShowlogoutButton(true);
-    setloginstatus(true)
+
+    
 };
-axios.get('/GetServerStatus').then((res)=>{
-  //console.log(res.data.status)
-  if(res.data.status==="success"){
-    //console.log(res)
-    setShowloginButton(true);
-  }
-})
-.catch(err=>{console.log("Server Error:"+err)}); 
+   
+
+if(!showloginButton){
+  
+    axios.get('/GetServerStatus').then((resq)=>{
+   
+      if(resq.data.status==="success"){
+        console.log(resq.data.status)
+        setShowloginButton(true);    
+      }
+      
+    })
+    .catch(err=>{console.log("Server Error:"+err)}
+    );
+}
+
 const onSignoutSuccess = () => {
   alert("You have been logged out successfully");
   //console.clear();
@@ -56,8 +71,8 @@ const onSignoutSuccess = () => {
   console.log(global.userlogininfo.statas)
   setShowloginButton(true);
   setShowlogoutButton(false);
-  
   setloginstatus(false)
+
 };
 
 
@@ -71,6 +86,7 @@ const onLoginFailure = (res) => {
 
   return (
     <Content>
+      
         { showloginstatus ?
           <Navigate to={`/user`}/>
           : null

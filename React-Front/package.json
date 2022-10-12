@@ -5,7 +5,8 @@
   "dependencies": {
     
     "antd": "^4.22.4",
-    "axios": "^0.27.2",
+    
+    "axios": "^1.1.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-google-login": "^5.2.2",
@@ -37,6 +38,6 @@
     ]
   },
   "devDependencies": {
-    "react-router-dom": "^6.3.0"
+    "react-router-dom": "^6.4.2"
   }
 }

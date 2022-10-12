@@ -22,31 +22,7 @@ const clientId = "1042995923118-56bteondv86u1gq4jdbsq2qleqb4e5c4.apps.googleuser
 
 function clickMe() {
   alert("Success!");
-  
-
 }
-
-
-
-/*const props = {
-  name: 'file',
-  action: 'http://localhost:3000/',
-  headers: {
-    authorization: 'authorization-text',
-  },
-
-  onChange(info) {
-    if (info.file.status !== 'uploading') {
-      console.log(info.file, info.fileList);
-    }
-
-    if (info.file.status === 'done') {
-      message.success(`${info.file.name} file uploaded successfully`);
-    } else if (info.file.status === 'error') {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-};*/
 
 
 function User() {
@@ -54,25 +30,41 @@ function User() {
   const [showloginstatus, setloginstatus] = useState(global.userlogininfo.statas);
   const [showCertificate, setCertificate] = useState(false);
   const [showCertData, setCertData] = useState();
+  const [accessToken, setaccessToken] = useState(null);
   
-  const accessToken = null;
-  if(!accessToken){
+  
+  
+  if(accessToken===null){
+    console.log("in if")
+    
     axios.get('/getAccessToken').then(resp => {
-      accessToken=resp.data;
-      console.log('acctoken = '+accessToken);
+      console.log("resp",resp)
+      setaccessToken(resp.data);
+      console.log('gacctoken = '+accessToken)
     })
     .catch((err)=>{
-      //console.log("err:"+err);
+      console.log("err:"+err);
     });
   }
   
+ 
   
   const onSignoutSuccess = () => {
     alert("You have been logged out successfully");
     //console.clear();
+    axios.get('/sign_out').then(resp => {
+      console.log(resp.data);
+    })
+
+    .catch((err)=>{
+      console.log("err:"+err);
+    });
+    
     global.userlogininfo.statas = false
     console.log(global.userlogininfo.statas )
+    
     setloginstatus(false)
+    setaccessToken(null);
 
   };
   const onSignoutFailure = (res) => {
@@ -100,14 +92,15 @@ function User() {
       "institution":"allen",
       "expiration_Date":"allen"
     }*/
-    
-    
+    if(!showCertificate){
+      console.log("click get my cert:",accessToken)
     axios.post('/get_my_certificate',{
       access_token : accessToken,
 
     }).then((res) => {
+      
     console.log(res.data)
-    if(res.data.status==="success"){
+    if(res.data.name){
       let cert = {
         "name":res.data.name,
         "birth":res.data.birth,
@@ -116,7 +109,7 @@ function User() {
         "department":res.data.department,
         "president":res.data.president,
         "institution":res.data.institution,
-        "expiration_Date":res.data.expiration_Date
+        "expiration_Date":res.data.expiration_date
       }
       setCertData(cert);
       setCertificate(!showCertificate)
@@ -127,6 +120,11 @@ function User() {
     console.log(err)
     
   });
+  }
+  else{
+    setCertificate(!showCertificate)
+  }
+    
   
   }
   
