@@ -53,6 +53,7 @@ function User() {
   const [showUserName, setUserName] = useState();
   const [showloginstatus, setloginstatus] = useState(global.userlogininfo.statas);
   const [showCertificate, setCertificate] = useState(false);
+  const [showCertData, setCertData] = useState();
   
   const accessToken = null;
   if(!accessToken){
@@ -89,23 +90,63 @@ function User() {
   });
   }
   function getMyCertificate(){
+    /*let cert_data = {
+      "name":"allen",
+      "birth":"allen",
+      "date":"allen",
+      "degree":"allen",
+      "department":"allen",
+      "president":"allen",
+      "institution":"allen",
+      "expiration_Date":"allen"
+    }*/
+    
+    
     axios.post('/get_my_certificate',{
       access_token : accessToken,
 
-  }).then((res) => {
-    console.log(res.json)
-    /*if(res.data){
-      this.cert_data = res.data
+    }).then((res) => {
+    console.log(res.data)
+    if(res.data.status==="success"){
+      let cert = {
+        "name":res.data.name,
+        "birth":res.data.birth,
+        "date":res.data.date,
+        "degree":res.data.degree,
+        "department":res.data.department,
+        "president":res.data.president,
+        "institution":res.data.institution,
+        "expiration_Date":res.data.expiration_Date
+      }
+      setCertData(cert);
       setCertificate(!showCertificate)
-    }*/
+      
+    }
   })
   .catch((err) => {
     console.log(err)
     
-  }); 
-    
+  });
+  
   }
-
+  
+  const CertFormat = (props) => {
+    //cert = JSON.parse(cert);
+    //console.log(cert)
+    return (<div className='aaa'>
+    <Descriptions layout="horizontal">
+  <br/>
+    <Descriptions.Item label="Name" >{props.name}</Descriptions.Item><br /><br />
+    <Descriptions.Item label="Birth" >{props.birth}</Descriptions.Item><br /><br />
+    <Descriptions.Item label="Date" >{props.date}</Descriptions.Item><br /><br />
+    <Descriptions.Item label="Degree">{props.degree}</Descriptions.Item><br /><br />
+    <Descriptions.Item label="Department" >{props.departmen}</Descriptions.Item><br /><br />
+    <Descriptions.Item label="President" >{props.president}</Descriptions.Item><br /><br />
+    <Descriptions.Item label="Institution">{props.institution}</Descriptions.Item><br /><br />
+    <Descriptions.Item label="Expiration_Date" >{props.expiration_Date}</Descriptions.Item><br /><br />
+    </Descriptions>
+    </div>)
+  };
 
   return (
     
@@ -153,19 +194,7 @@ function User() {
       <br/>
       <div id="autoDisplay">
       {showCertificate?
-      <div className='aaa'>
-      <Descriptions layout="horizontal">
-    <br/>
-      <Descriptions.Item label="Name" >YI-XUE,ZHUANG</Descriptions.Item><br /><br />
-      <Descriptions.Item label="Birth" >20000915</Descriptions.Item><br /><br />
-      <Descriptions.Item label="Date" >20230604</Descriptions.Item><br /><br />
-      <Descriptions.Item label="Degree">bachelor</Descriptions.Item><br /><br />
-      <Descriptions.Item label="Department" >CSIE</Descriptions.Item><br /><br />
-      <Descriptions.Item label="President" >CH-MING,CHEN</Descriptions.Item><br /><br />
-      <Descriptions.Item label="Institution">Aletheia University</Descriptions.Item><br /><br />
-      <Descriptions.Item label="Expiration_Date" >00000000</Descriptions.Item><br /><br />
-      </Descriptions>
-      </div>
+      <CertFormat {...showCertData} />
       :
       <Carousel autoplay>
       <div>
