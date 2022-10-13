@@ -70,7 +70,7 @@ function Institution() {
     
       <Layout>
       <Header>
-        <Title style={{color:'white'}} level={1} >Welcome Institution!</Title>
+        <Title>Welcome Institution!</Title>
       </Header>
        <Layout>
 

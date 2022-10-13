@@ -113,6 +113,7 @@ const App = () => {
         </div>
         <div style={{height: '450px', width : '100%'}} className="space">
           <Space align="baseline">
+          <input type="submit" hidden />
           <Button style={{height: '40px', width : '60px'}} onClick={onLoginSuccess}>登入</Button>
           <Button style={{height: '40px', width : '60px'}} onClick={() => navigate('/Registe')}> 註冊</Button>
           </Space>

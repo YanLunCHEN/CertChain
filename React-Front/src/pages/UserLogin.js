@@ -35,7 +35,7 @@ function UserLogin() {
       access_token: res.getAuthResponse(true).access_token
     })
     //.then(console.log( Data2))
-    .then((res) => {console.log("login  ",res.status)
+    .then((res) => {
     if(res.status===200){
       global.userlogininfo.statas = true
       setShowloginButton(false);
@@ -43,25 +43,26 @@ function UserLogin() {
     }
   
     })
-    .catch(err=>{console.log("err")}); 
+    .catch(err=>{console.log("SignIn Error:"+err)}); 
     //axios-end 
 
     
 };
+function GetServerStatus(){
+  axios.get('/GetServerStatus').then((resq)=>{
    
+    if(resq.data.status==="success"){
+      //console.log(resq.data.status)
+      setShowloginButton(true);    
+    }
+    
+  })
+  .catch(err=>{console.log("Server Error:"+err);GetServerStatus();}
+  );
+}   
 
 if(!showloginButton){
-  
-    axios.get('/GetServerStatus').then((resq)=>{
-   
-      if(resq.data.status==="success"){
-        console.log(resq.data.status)
-        setShowloginButton(true);    
-      }
-      
-    })
-    .catch(err=>{console.log("Server Error:"+err)}
-    );
+  GetServerStatus();
 }
 
 const onSignoutSuccess = () => {

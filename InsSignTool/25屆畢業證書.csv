@@ -1,8 +1,5 @@
 ﻿name,birth,date,degree,department,president,institution,expiration_date,email
-"YAN-LUN,CHEN",20000917,20230604,bachelor,csie,"CI-MING,CHEN",Aletheia University,0,allen.0917.5859@gmail.com
-Roy Hemsworth,20000625,20230604,bachelor,csie,"CI-MING,CHEN",Aletheia University,0,hemsworth8512@yahoo.com
-Adrian McGowan,20000312,20230604,bachelor,csie,"CI-MING,CHEN",Aletheia University,0,mcgowan5059@gmail.com
-Noah Kim,20000109,20230604,bachelor,csie,"CI-MING,CHEN",Aletheia University,0,kim5237@gmail.com
-,,,,,,,,
-,,,,,,,,
-,,,,,,,,
+"YAN-LUN,CHEN",20000917,20230604,Bachelor,CSIE,"CI-MING,CHEN",Aletheia University,0,allen.0917.5859@gmail.com
+Roy Hemsworth,20000625,20230604,Bachelor,CSIE,"CI-MING,CHEN",Aletheia University,0,hemsworth8512@yahoo.com
+Adrian McGowan,20000312,20230604,Bachelor,CSIE,"CI-MING,CHEN",Aletheia University,0,mcgowan5059@gmail.com
+Noah Kim,20000109,20230604,Bachelor,CSIE,"CI-MING,CHEN",Aletheia University,0,kim5237@gmail.com

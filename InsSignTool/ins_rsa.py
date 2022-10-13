@@ -74,9 +74,11 @@ for cert in certs:
 #print("cert data : ",json.dumps(certs[0]).encode('utf-8').hex())
 #bytes.fromhex()可轉回原始資料
 signed_datas = []
+
 for _sign in signature:
     signed_datas.append(_sign.hex()+json.dumps(certs[signature.index(_sign)]).encode('utf-8').hex());
     #bytes.fromhex(json.dumps(certs[0]).encode('utf-8').hex()).decode('utf-8'))
+    print(_sign.hex())
 #print(signed_datas[0])
 #encode
 from Crypto.Cipher import PKCS1_OAEP
