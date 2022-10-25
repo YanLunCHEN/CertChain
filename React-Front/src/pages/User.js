@@ -11,7 +11,7 @@ import { Navigate} from "react-router-dom"
 import '../logininfo.js';
 import {axios_user} from '../Axios'
 import { Descriptions } from 'antd';
-
+import parse from 'html-react-parser';
 
 
 
@@ -31,6 +31,8 @@ function User() {
   const [showCertificate, setCertificate] = useState(false);
   const [showCertData, setCertData] = useState();
   const [accessToken, setaccessToken] = useState(null);
+  const [ShowOthersCert,setShowOthersCert] = useState(false);
+  const [OthersCert, setOthersCert] = useState(null);
   
   
   
@@ -69,23 +71,21 @@ function User() {
   
   
   function getOthersCert(){ 
-    axios.post('/get_others_certificate',{ 
-      access_token : accessToken,
-    }).then(resp => {  
-      console.log(resp.data);
-  });
+    if(!ShowOthersCert){      
+      axios.post('/get_others_certificate',{ 
+        access_token : accessToken,
+      }).then(resp => {  
+        //let othersCertList = resp.data;
+        setOthersCert(resp.data);
+        setShowOthersCert(true);
+        console.log(OthersCert);
+      });
+    }
+    else{
+      setShowOthersCert(!ShowOthersCert);
+    }
   }
   function getMyCertificate(){
-    /*let cert_data = {
-      "name":"allen",
-      "birth":"allen",
-      "date":"allen",
-      "degree":"allen",
-      "department":"allen",
-      "president":"allen",
-      "institution":"allen",
-      "expiration_Date":"allen"
-    }*/
     if(!showCertificate){
       //console.log("click get my cert:",accessToken)
       axios.post('/get_my_certificate',{
@@ -114,13 +114,24 @@ function User() {
         
       });
       }
-      else{
-        setCertificate(!showCertificate)
-      }
+    else{
+      setCertificate(!showCertificate)
+    }
     
   
   }
-  
+  const CertVisitable = (props) => {
+    let i=0;
+    let Html = '';
+    while(props[i++]!=null){
+      Html+=`${props[i-1].name}<br>`;
+    }
+    return(
+      <div>
+        {parse(Html)}
+      </div>
+    )
+  }
   const CertFormat = (props) => {
     //cert = JSON.parse(cert);
     //console.log(cert)
@@ -186,8 +197,9 @@ function User() {
       <br/>
       <div id="autoDisplay">
       {showCertificate?
-      <CertFormat {...showCertData} />
-      :
+      <CertFormat {...showCertData} />:
+      ShowOthersCert? 
+      <CertVisitable {...OthersCert} />:
       <Carousel autoplay>
       <div>
         <Image width={700}

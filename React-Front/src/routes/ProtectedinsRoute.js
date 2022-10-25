@@ -7,9 +7,7 @@ import {
   //import '../logininfo'
   
   const ProtectedInsRoute = (
-    
     {
-    
     isAllowed=global.inslogininfo.statas,
     redirectPath = '/Institutionlogin',
     children,
