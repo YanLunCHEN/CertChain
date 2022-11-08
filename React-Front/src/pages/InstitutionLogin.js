@@ -6,7 +6,7 @@ const { Header, Content } = Layout;
 
 const clientId = "100559822787-ffbh8kditc4o92h0jnghut5t882mr9pq.apps.googleusercontent.com";
 
-function InstitutionLogin() {
+const InstitutionLogin = () =>  {
     
         const [showloginButton, setShowloginButton] = useState(true);
         const [showlogoutButton, setShowlogoutButton] = useState(false);

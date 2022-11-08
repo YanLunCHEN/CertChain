@@ -15,7 +15,7 @@ const responseGoogle = (response) => {
 }
 const clientId = "100559822787-ffbh8kditc4o92h0jnghut5t882mr9pq.apps.googleusercontent.com";
 
-function UserLogin() {
+const UserLogin = () =>  {
   const [showloginButton, setShowloginButton] = useState(false);
   const [showlogoutButton, setShowlogoutButton] = useState(false);
   const [showloginstatus, setloginstatus] = useState(global.userlogininfo.statas)
@@ -24,10 +24,11 @@ function UserLogin() {
 
   const onLoginSuccess = (res) => {
     //console.log('Login Success:', res.profileObj);
-    //console.log('access_token:', res.getAuthResponse(true).access_token);
+    console.log('access_token!!!:', res.getAuthResponse(true).access_token);
     //console.log('res:', res);
     //axios
-    
+    localStorage.setItem("acctoken",res.getAuthResponse(true).access_token)
+    localStorage.setItem("userinfo",JSON.stringify(res.profileObj))
     setaccessToken(res.getAuthResponse(true).access_token);
     axios.post('/SignInUser',{
       email : JSON.parse(JSON.stringify(res.profileObj.email)),
