@@ -90,6 +90,7 @@ const App = () => {
           type="text"
           placeholder="電子郵件地址"
           id="username"
+          
           style={{height: '65px', width : '300px'}}
           ref={userRef}
           autoComplete="off"

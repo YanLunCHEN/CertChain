@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button,Space,message } from 'antd';
+import { Button,Space} from 'antd';
 import './App.css';
-import { Layout } from 'antd';
+import { Layout , Row,Col} from 'antd';
 import { Typography } from 'antd';
 import { Carousel } from 'antd';
 import { Image } from 'antd';
@@ -11,10 +11,15 @@ import { Navigate} from "react-router-dom"
 import '../logininfo.js';
 import {axios_user} from '../Axios'
 import { Descriptions } from 'antd';
-import parse from 'html-react-parser';
-
-
+// import parse from 'html-react-parser';
+// import ReactModal from 'react-modal';
 import { Collapse } from 'antd';
+import { Input } from 'antd';
+import { Select } from 'antd';
+import { Axios } from 'axios';
+const { Option } = Select;
+
+
 
 const { Panel } = Collapse;
 const axios = axios_user();
@@ -25,13 +30,21 @@ const clientId = "1042995923118-56bteondv86u1gq4jdbsq2qleqb4e5c4.apps.googleuser
 // function clickMe() {
 //   alert("Success!");
 // }
-
+//ReactModal.setAppElement(document.getElementById('root'));
 
 function User(){
   function clickMe() {
-    alert(accessToken);
+    alert(this.value);
     console.log(accessToken)
   }
+  const handledateChange = (value) => {
+    //console.log(`selected ${value}`);
+    localStorage.setItem("date",value)
+  };
+  const handleemailChange = (value) => {
+    //console.log(`email ${value.target.value}`);
+    localStorage.setItem("email",value.target.value)
+  };
   const [showUserName, setUserName] = useState();
   const [showloginstatus, setloginstatus] = useState(global.userlogininfo.statas);
   const [showCertificate, setCertificate] = useState(false);
@@ -40,7 +53,10 @@ function User(){
   const [ShowOthersCert,setShowOthersCert] = useState(false);
   const [OthersCert, setOthersCert] = useState(null);
   const [ShowOthersCertData,setOthersCertData] = useState();
-  console.log(JSON.parse(localStorage.getItem("userinfo")));
+  const [ShowShareMyCert,setShareMyCert] = useState(false);
+  const [SheredCert,setSheredCert] = useState(false);
+  const [SharedCertData,setSharedCertData] = useState(null);
+  // console.log(JSON.parse(localStorage.getItem("userinfo")));
   // if(accessToken===null){
   //   axios.get('/getAccessToken').then(resp => {
   //     console.log("acctoken",resp.data)
@@ -145,7 +161,7 @@ function User(){
   }
   
   function getOthersCert(){
-    
+    setShareMyCert(false);
     setCertificate(false) 
     if(!ShowOthersCert){      
       axios.post('/get_others_certificate',{ 
@@ -172,7 +188,7 @@ function User(){
   }
   
   function getMyCertificate(){
-    
+    setShareMyCert(false);
     setShowOthersCert(false);
     if(!showCertificate){
       
@@ -211,13 +227,25 @@ function User(){
       setCertificate(!showCertificate)
     }
   }
+  function getShareCertPage(){
+    setCertificate(false) 
+    setShowOthersCert(false);
+    if(!ShowShareMyCert){      
+      setShareMyCert(!ShowShareMyCert);
+    }
+    else{
+      setShareMyCert(!ShowShareMyCert);
+    }
+  }
+
   const CertVisitable = (props) => {
     let arr=[];
     for(let i=0;i<Object.keys(props).length;i++){
       arr.push(props[i]);
     }
     const listItems = arr.map((number) =>
-      <Panel header={number.name} key={arr.indexOf(number)}><p><div className='aaa'>
+      <Panel header={number.name} key={arr.indexOf(number)}>
+      <div className='aaa'>
       <Descriptions layout="horizontal"><br/>
       <Descriptions.Item label="Name" >{number.name}</Descriptions.Item><br /><br />
       <Descriptions.Item label="Birth" >{number.birth}</Descriptions.Item><br /><br />
@@ -230,7 +258,8 @@ function User(){
       <Descriptions.Item label="JsonDataHex" span={2}><Paragraph copyable>{number.jsonHex}</Paragraph></Descriptions.Item><br />
       <Descriptions.Item label="Signature" span={2}><Paragraph copyable>{number.signature}</Paragraph></Descriptions.Item><br /><br />
       </Descriptions>
-      </div></p></Panel>
+      </div>
+      </Panel>
     );
     // console.log(arr);
     // const listItems = arr.map((number) =>
@@ -268,7 +297,109 @@ function User(){
     </Descriptions>
     </div>)
   };
+  const getSharedEmail = () =>{
+    axios.post('/shared_cert',{ 
+      access_token : accessToken,
+    }).then(resp => { 
+      console.log(resp.data); 
+      setSharedCertData(resp.data)
+    }).catch(err=>{
+      console.log(err);
+    }); 
+      
+  }
+    
+  
+  const Sharemycert = () => {
+    //setShareMyCert(false);
+    const Sharemycert = () => {
+    return(
+    <div>
+      {}
+    </div>)
+    }  
+      
+    
+    return (
+      <Layout>
+        <div className='title'>
+          <Title>新增證書使用者</Title>
+        </div>
+        <Row className='row'>
+        <Col span={12}>
+        <div className='h1'>
+        <h3>請輸入電子信箱</h3>
+        <Input placeholder="Email" style={{
+          width: 500,
+          marginLeft: 5,
+        }} 
+        onChange={handleemailChange}
+        />      
+        </div>
+        </Col>       
+        <Col span={6}>
+        <div className='h2'>
+        <h3>請選擇天數</h3>
+        <Select
+          defaultValue="Days"
+          style={{
+            width: 200,
+          }}
+          onChange={handledateChange}
+        >
+        <Option value="5">5</Option>
+        <Option value="10">10</Option>
+        <Option value="15">15</Option>
+        <Option value="30">30</Option>
+        <Option value="90">90</Option>
+        </Select>
+        </div>
+        </Col>
+        <Col span={6}>
+        <div className='h4'>
+        <h3><br/></h3>
+        <Button  onClick={addSharePersion}>
+          提交
+        </Button>
+        </div>
+        </Col>
+        </Row>
+      <br/>
+      <br/>
+        <div className='share'>
+        <Button  onClick={getSharedEmail}>
+          已分享的證書
+        </Button><br/>
+        {SharedCertData}
+        </div>
+      <div className='qqq'>
+        <br/>
+        <br/>   
+      
+      </div>
+      </Layout>
+    );
+  }
+  const addSharePersion = () =>{
+    let email = localStorage.getItem("email");
+    let date = localStorage.getItem("date")
+    axios.post('/share_my_cert',{ 
+      access_token : accessToken,
+      createEmail : email,
+      date : date
+    }).then(resp => {  
+      if(resp.data.status==="insertAgressselect success"){
+        alert(resp.data.status);
+      }
+      else{
+        alert(resp.data.status);
+      }
+      
+    }).catch(err=>{
+      alert(err);
+    })
 
+  }
   return (
     
     <div className="App">
@@ -288,11 +419,9 @@ function User(){
         <Button size="large" onClick={getOthersCert}>
           查詢證書
         </Button>
-        <Button size="large" onClick={clickMe}>
+        <Button size="large" onClick={getShareCertPage}>
           分享證書
         </Button>
-        
-        
         <GoogleLogout
           render={renderProps => (
           <Button size="large" onClick={renderProps.onClick} disabled={renderProps.disabled}>登出</Button>
@@ -317,8 +446,9 @@ function User(){
       <CertFormat {...showCertData} />:
       ShowOthersCert? 
       <CertVisitable {...OthersCert} />:
-      
-      <AutoDisplay />
+      ShowShareMyCert?
+      <Sharemycert />
+      :<AutoDisplay />
       }
       </div>
       <p>Designed by AUCSIE</p>

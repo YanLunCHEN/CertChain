@@ -5,6 +5,12 @@ from Crypto.Signature.pkcs1_15 import PKCS115_SigScheme
 from Crypto.Hash import SHA256
 from base64 import b64encode
 from flask import Flask, jsonify, request,make_response
+#request.get_json().get('json')request.get_json().get('signature')
+pubkey = '''-----BEGIN RSA PUBLIC KEY-----
+MIGJAoGBAL+fWaAv4Y+a8/cD1DlCKC41sIM04lzo82Kdo0qeNn8x5ThsfU7WMGS4
+YC8rgc4ap8SItFobNyvxT0KIicsTVhFG7h3Cx88qA/71S/XhiKIN432Ln4mHvV9b
+kePfG5dcAThlXCWCM+Yb+6AUTaykRvm8mgEIozpN/MTD25YFkakvAgMBAAE=
+-----END RSA PUBLIC KEY-----'''
 app = Flask(__name__)
 @app.route("/")
 def index():
@@ -13,9 +19,13 @@ def index():
 def verify():
     if request.method == 'POST':
         try:
-            publickey = request.get_json().get('publickey')
-            file_data = request.get_json().get('file_data')
-            signature = request.get_json().get('signature')
+            publickey = '''-----BEGIN RSA PUBLIC KEY-----
+MIGJAoGBAL+fWaAv4Y+a8/cD1DlCKC41sIM04lzo82Kdo0qeNn8x5ThsfU7WMGS4
+YC8rgc4ap8SItFobNyvxT0KIicsTVhFG7h3Cx88qA/71S/XhiKIN432Ln4mHvV9b
+kePfG5dcAThlXCWCM+Yb+6AUTaykRvm8mgEIozpN/MTD25YFkakvAgMBAAE=
+-----END RSA PUBLIC KEY-----'''
+            file_data = request.values['json'] 
+            signature = request.values['signature']
         except AttributeError as err:
             return jsonify({'status': 'fail','error':err})
         except Exception as e:
@@ -27,8 +37,10 @@ def verify():
         verifier = PKCS115_SigScheme(pubkey)
         try:
             verifier.verify(hash, bytes.fromhex(signature))
+            print("{'status': 'success','data':'true'}")
             return jsonify({'status': 'success','data':'true'})
         except:
+            print("{'status': 'success','data':'false'}")
             return jsonify({'status': 'success','data':'false'})
 '''@app.route("/verify")
 def verify():
@@ -71,8 +83,10 @@ def verify_inst():
         verifier = PKCS115_SigScheme(pubkey)
         try:
             verifier.verify(hash, bytes.fromhex(signature))
+            print("{'status': 'success','data':'true'}")
             return jsonify({'status': 'success','data':'true'})
         except:
+            print("{'status': 'success','data':'false'}")
             return jsonify({'status': 'success','data':'false'})
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=11000)
