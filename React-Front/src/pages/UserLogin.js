@@ -39,6 +39,7 @@ const UserLogin = () =>  {
     .then((res) => {
     if(res.status===200){
       global.userlogininfo.statas = true
+      localStorage.setItem("isLogIn",true);
       setShowloginButton(false);
       setloginstatus(true)
     }
@@ -88,7 +89,7 @@ const onLoginFailure = (res) => {
 
   return (
     <Content>
-      
+      <div>
         { showloginstatus ?
           <Navigate to={`/user`}/>
           : null
@@ -97,7 +98,7 @@ const onLoginFailure = (res) => {
         <div style={{height:'100px',width:'100%'}}>
         <center>
         { showloginButton ?
-
+                
                 <GoogleLogin
                     clientId={clientId}
                     buttonText="Sign In"
@@ -106,10 +107,10 @@ const onLoginFailure = (res) => {
                     cookiePolicy={'single_host_origin'}
                     isSignedIn={true}
                    
-                />  : <h1>Server Error</h1>}</center></div>
-               
+                />: <h1>Server Error</h1>}</center></div>
+          </div>     
         </Content>         
-            
+        
   );
 }
 

@@ -6,7 +6,7 @@ from Crypto.Hash import SHA256
 from base64 import b64encode
 from flask import Flask, jsonify, request,make_response
 #request.get_json().get('json')request.get_json().get('signature')
-pubkey = '''-----BEGIN RSA PUBLIC KEY-----
+pubkey111 = '''-----BEGIN RSA PUBLIC KEY-----
 MIGJAoGBAL+fWaAv4Y+a8/cD1DlCKC41sIM04lzo82Kdo0qeNn8x5ThsfU7WMGS4
 YC8rgc4ap8SItFobNyvxT0KIicsTVhFG7h3Cx88qA/71S/XhiKIN432Ln4mHvV9b
 kePfG5dcAThlXCWCM+Yb+6AUTaykRvm8mgEIozpN/MTD25YFkakvAgMBAAE=
@@ -19,13 +19,15 @@ def index():
 def verify():
     if request.method == 'POST':
         try:
-            publickey = '''-----BEGIN RSA PUBLIC KEY-----
-MIGJAoGBAL+fWaAv4Y+a8/cD1DlCKC41sIM04lzo82Kdo0qeNn8x5ThsfU7WMGS4
-YC8rgc4ap8SItFobNyvxT0KIicsTVhFG7h3Cx88qA/71S/XhiKIN432Ln4mHvV9b
-kePfG5dcAThlXCWCM+Yb+6AUTaykRvm8mgEIozpN/MTD25YFkakvAgMBAAE=
------END RSA PUBLIC KEY-----'''
-            file_data = request.values['json'] 
+            
+            file_data = request.values['json']
+            print(file_data)
             signature = request.values['signature']
+            print(signature)
+            publickey = request.files['publickey']
+            publickey = publickey.read().decode("utf-8") 
+            print(publickey)
+            
         except AttributeError as err:
             return jsonify({'status': 'fail','error':err})
         except Exception as e:
@@ -89,5 +91,5 @@ def verify_inst():
             print("{'status': 'success','data':'false'}")
             return jsonify({'status': 'success','data':'false'})
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=11000)
+    app.run(host="0.0.0.0", port=11000,threaded=True)
 

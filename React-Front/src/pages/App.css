@@ -4,6 +4,7 @@
 }
 .button{
   color: aquamarine;
+  
 }
 
 .App-logo {
@@ -42,13 +43,26 @@
 }
 
 .aaa{
+  
   width: 1000px;
   display:inline-block;
   max-width:900px;
   margin-left:-120px;
   
 }
-
+.bbb{
+  width: 100 vh;
+  height: 100 vh;
+  display: block;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  
+  
+}
+.qqq{
+  text-align: center;
+}
 
 
 

@@ -1,6 +1,6 @@
 import { Layout } from 'antd';
-import React from 'react';
-import { Button, Form, Input } from 'antd';
+import React, { useState } from 'react';
+import { Button, Form, Input ,  Modal } from 'antd';
 import { Typography } from 'antd';
 import {axios_ins} from '../Axios'
 import {  useNavigate } from 'react-router-dom';
@@ -10,6 +10,23 @@ const axios = axios_ins();
 
 const Registe = () => {
   const navigate = useNavigate();
+  const info = () => {
+    Modal.info({
+      title: 'Openssl Rsa 金鑰對生產',
+
+      width: 800,
+
+      content: (
+        <div>
+          1. <a href="https://slproweb.com/products/Win32OpenSSL.html" target="連結目標" title="下載OpenSSL">Click me Download Openssl</a><br />
+          3. Add openssl into ENVIRONMENT_VARIABLE<br /> 
+          2. $: openssl genrsa -out &lt;FILE_NAME.pem&gt; 2048<br />
+          3. $: openssl rsa -in &lt;FILE_NAME.pem&gt; -pubout -out pubkey.pem
+        </div>
+      ),
+      onOk() {},
+      });
+  };
   const onFinish = (values) => {
     axios.post('/registe',{
       RepresentInstitution : values.RepresentInstitution,
@@ -35,7 +52,7 @@ const Registe = () => {
   return (
     <Layout>
       <Content>
-      <div className='aaa'>
+      <div className='bbb'>
         <div className='h1'>
         <br />
         <Title>申請成為發證機構</Title>
@@ -110,19 +127,36 @@ const Registe = () => {
         
         <Input />
       </Form.Item>
-
-
+      <Form.Item
+        label="機構公開金鑰"
+        name="InsPubKey"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your Institution Public Key!',
+          },
+        ]}
+      >
+        <Input />
+      
+      </Form.Item>
+      
+      
       <Form.Item 
         wrapperCol={{
           offset: 8,
-          span: 16,
+          span: 8,
         }}
       >
-        <Button type="primary" htmlType="submit">
+      <Button onClick={info} style={{marginRight:10}}>產生Rsa金鑰對方式</Button>
+
+      <Button type="primary" htmlType="submit" >
         提交
-    </Button>
+      </Button>
       </Form.Item>
     </Form>
+    
+    
     <div className='qqq'>
     <p>Designed by AUCSIE</p>
     </div>

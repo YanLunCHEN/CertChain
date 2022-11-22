@@ -24,8 +24,10 @@ const props = {
   name: 'file',
   action: 'http://114.32.250.105:5000/InsertToBlockchain',
   headers: {
-    authorization: 'authorization-text',
+    //authorization: 'authorization-text',
+    access_token : localStorage.getItem('InsAccessToken'),
   },
+  
 
   onChange(info) {
     console.log(info.file.status)
@@ -45,16 +47,7 @@ const props = {
 function Institution() {
   
   const [showloginstatus, setloginstatus] = useState(global.inslogininfo.statas);
-  const accessToken = null;
-  if(!accessToken){
-    axios.get('/getAccessToken').then(resp => {
-      console.log('acctoken = '+resp.data);
-      accessToken=resp.data;
-    })
-    .catch((err)=>{
-      //console.log("err:"+err);
-    });
-  }
+  const accessToken = localStorage.getItem('InsAccessToken');
   
   const onSignoutSuccess = () => {
     alert("You have been logged out successfully");
@@ -69,28 +62,28 @@ function Institution() {
   <div className="App">
     
       <Layout>
-      <Header>
-        <Title>Welcome Institution!</Title>
-      </Header>
+      
        <Layout>
 
       <Content>
-      
+      <br/>
+      <Title>Welcome Institution!</Title>
+      <br/>
       { showloginstatus ?
           null
           : <Navigate to="/"/>
       }  
       <Space size="large">
         
-        <Button size="large" onClick={clickMe}>
+        {/* <Button size="large" onClick={clickMe}>
           查看個人資料
-        </Button>
+        </Button> */}
       <Upload maxCount={1} accept=".csv"{...props}>
         <Button size="large" >
           <UploadOutlined /> 證書上鏈
         </Button>
       </Upload>
-      
+     
        
         <Button size="large" onClick={onSignoutSuccess}>
           登出
@@ -162,7 +155,7 @@ function Institution() {
         />
         </div>
       </Carousel>
-      <h1>Designed by AUCSIE</h1>
+      <p>Designed by AUCSIE</p>
       </Footer>
 
         </Layout>

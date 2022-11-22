@@ -18,10 +18,7 @@ import ProtectedinsRoute from './routes/ProtectedinsRoute'
 import './logininfo.js';
 import Registe from './pages/registe'
 export default function App() {
-  
-  
   return (
-    
     <BrowserRouter>
       <Routes>
           <Route path="/" element={<Layout2 />}/>
@@ -30,17 +27,14 @@ export default function App() {
           <Route path="/Registe" element={<Registe />} />
           <Route path="/user" element={
             <ProtecteduserRoute>
-              <User />
+            <User></User> 
             </ProtecteduserRoute>}/>
-          
           <Route path="/institution" element={
             <ProtectedinsRoute>
               <Institution />
             </ProtectedinsRoute>}/>
-          
           <Route path="contact" element={<Contact />} />
           <Route path="*" element={<NoPage />} />
-        
       </Routes>
     </BrowserRouter>
   );

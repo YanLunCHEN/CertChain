@@ -16,7 +16,6 @@ import { Descriptions } from 'antd';
 import { Collapse } from 'antd';
 import { Input } from 'antd';
 import { Select } from 'antd';
-import { Axios } from 'axios';
 const { Option } = Select;
 
 
@@ -27,16 +26,8 @@ const { Content , Footer} = Layout;
 const { Title, Paragraph} = Typography;
 const clientId = "1042995923118-56bteondv86u1gq4jdbsq2qleqb4e5c4.apps.googleusercontent.com";
 
-// function clickMe() {
-//   alert("Success!");
-// }
-//ReactModal.setAppElement(document.getElementById('root'));
-
 function User(){
-  function clickMe() {
-    alert(this.value);
-    console.log(accessToken)
-  }
+
   const handledateChange = (value) => {
     //console.log(`selected ${value}`);
     localStorage.setItem("date",value)
@@ -52,23 +43,9 @@ function User(){
   const [accessToken, setaccessToken] = useState(null);
   const [ShowOthersCert,setShowOthersCert] = useState(false);
   const [OthersCert, setOthersCert] = useState(null);
-  const [ShowOthersCertData,setOthersCertData] = useState();
   const [ShowShareMyCert,setShareMyCert] = useState(false);
-  const [SheredCert,setSheredCert] = useState(false);
   const [SharedCertData,setSharedCertData] = useState(null);
-  // console.log(JSON.parse(localStorage.getItem("userinfo")));
-  // if(accessToken===null){
-  //   axios.get('/getAccessToken').then(resp => {
-  //     console.log("acctoken",resp.data)
-  //     setaccessToken(localStorage.getItem("acctoken"));
-      
-  //     setUserName(JSON.parse(localStorage.getItem("userinfo")).name)
-  //     //console.log('gacctoken = '+accessToken)
-  //   })
-  //   .catch((err)=>{
-  //     console.log("err:"+err);
-  //   });
-  // }
+
   if(accessToken===null){
     setaccessToken(localStorage.getItem("acctoken"));
     setUserName(JSON.parse(localStorage.getItem("userinfo")).name)
@@ -83,9 +60,10 @@ function User(){
     .catch((err)=>{
       console.log("err:"+err);
     });
-    global.userlogininfo.statas = false
+    global.userlogininfo.statas = false;
+    localStorage.setItem("isLogIn",false);
     //console.log(global.userlogininfo.statas )
-    setloginstatus(false)
+    setloginstatus(false);
     setaccessToken(null);
   };
   const onSignoutFailure = (res) => {
@@ -261,16 +239,7 @@ function User(){
       </div>
       </Panel>
     );
-    // console.log(arr);
-    // const listItems = arr.map((number) =>
-    //   number
-    // );
-    // console.log(listItems);
-    
-    // const listItems = props.map((number) =>
-    //   <Panel header="This is panel header 1" key="1"><p>gg</p></Panel>
-    // );
-  
+
     return(
       <div>
         <Collapse accordion>
@@ -311,15 +280,7 @@ function User(){
     
   
   const Sharemycert = () => {
-    //setShareMyCert(false);
-    const Sharemycert = () => {
-    return(
-    <div>
-      {}
-    </div>)
-    }  
-      
-    
+   
     return (
       <Layout>
         <div className='title'>

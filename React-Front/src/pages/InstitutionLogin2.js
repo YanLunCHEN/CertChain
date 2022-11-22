@@ -46,8 +46,9 @@ const App = () => {
       .then((res) => {
         console.log(res.status)
         console.log(res.data)
-        if(res.data==='success'){
+        if(res.data.status==='success'){
           global.inslogininfo.statas = true
+          localStorage.setItem('InsAccessToken',res.data.access_token);
           console.log(global.inslogininfo.statas )
           setloginstatus(true)
           return true
