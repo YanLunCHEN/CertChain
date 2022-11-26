@@ -1,6 +1,12 @@
 import fs from 'fs';
 import {select_key} from '../DataBase/sql.js'
 import axios from'axios';
+import path from 'path';
+import {fileURLToPath} from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 let file_data;
 let signature ;
 let data1;
@@ -17,10 +23,9 @@ async function readFile(name,email){
     }
 }
 function readcsv(dirname){
-    dirname = 'C:/Users/nulc9/Desktop/server/BlockchainFile/'+dirname;
-    console.log(dirname);
+    console.log(path.join(__dirname, dirname));
     return (new Promise((resolve,reject)=>{
-        fs.readFile(dirname, 'utf8', function (err, data) {
+        fs.readFile(path.join(__dirname, dirname), 'utf8', function (err, data) {
             file_data=data.slice(256);
             data1=data.split("\r\n");
             signature = data1[0];

@@ -19,7 +19,7 @@ const axios = axios_ins();
 
 const App = () => {
     const navigate = useNavigate();
-    const [user, setUser] = useState('');
+    const [user, setUser] = useState('chenallen5859@gmail.com');
     const [pwd, setPwd] = useState('');
     const [showloginstatus, setloginstatus] = useState(global.inslogininfo.statas);
     const userRef = useRef();
@@ -97,7 +97,7 @@ const App = () => {
           autoComplete="off"
           onChange={(e) => setUser(e.target.value)}
           //value={user}
-          value={user}
+          value='chenallen5859@gmail.com'
           required
           
         />

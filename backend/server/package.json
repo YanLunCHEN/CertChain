@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start:ins": "node Issuing.js",
+    "start:user": "node User.js"
   },
   "author": "",
   "license": "ISC",
@@ -26,5 +27,8 @@
     "node-flask": "^1.5.4",
     "path": "^0.12.7",
     "sha256": "^0.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9"
   }
 }

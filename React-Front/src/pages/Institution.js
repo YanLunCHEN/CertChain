@@ -22,7 +22,7 @@ function clickMe() {
 
 const props = {
   name: 'file',
-  action: 'http://114.32.250.105:5000/InsertToBlockchain',
+  action: 'http://218.161.4.208:5000/InsertToBlockchain',
   headers: {
     //authorization: 'authorization-text',
     access_token : localStorage.getItem('InsAccessToken'),

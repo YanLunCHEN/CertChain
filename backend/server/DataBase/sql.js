@@ -214,8 +214,8 @@ async function CreateBlockchainHash(Email  ,Time ){
             pool.close();
             return true;
         }catch(err){
-            console.log(err);
-            throw new Error("Create-ApplicationStatus-Error-SQLServer",false);
+            console.log('InsertDB ERRORRRRRRR '+err);
+            //throw new Error("Create-ApplicationStatus-Error-SQLServer",false);
     }
 }
 async function select_key(email ,key){

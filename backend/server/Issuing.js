@@ -70,10 +70,12 @@ app.post('/InsertToBlockchain',async (req, res)=>{
                 }
             }
         }catch(err){
-            console.log(err);
+            console.log("catcherr0000000000000"+err);
+            
         }
     }else{
         //return res.json({msg: 'accesstoken Error'});
+        res.status(400);
     }
 });
 
@@ -105,6 +107,6 @@ function MoveFile(avatar){
     }))
 };
 
-app.listen(5000,()=>{
+app.listen(5000,'0.0.0.0',()=>{
     console.log("run localhost:5000");
 })

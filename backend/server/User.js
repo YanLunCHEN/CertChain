@@ -109,7 +109,7 @@ app.post('/share_my_cert',cors(),async (req,res)=>{
         }
     }
     else{
-        return  res.json({status : 'createEmail not on db' });
+        return  res.json({status : 'createEmail not in db' });
     }
 })
 app.post('/shared_cert',cors(),async(req,res)=>{
@@ -141,12 +141,14 @@ app.post('/shared_cert',cors(),async(req,res)=>{
 app.get('/sign_out',cors(), (req,res)=>{
     return res.json({ status : 'success' });
 })
-app.get('/GetServerStatus',cors(), (req,res)=>{
-    return res.json({ status : 'success' });
+app.get('/GetServerStatus',cors({ credentials: true }), (req,res)=>{
+    res.json({ status : 'success' });
 })
- app.listen(4000,()=>{
-    console.log("run localhost:4000");
-})
-
+//  app.listen(4000,()=>{
+//     console.log("run localhost:4000");
+// })
+app.listen(4000, '0.0.0.0',()=>{
+        console.log("run localhost:4000");
+    })
 
 
