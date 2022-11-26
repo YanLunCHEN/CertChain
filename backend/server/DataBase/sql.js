@@ -262,6 +262,9 @@ async function shared_cert(email){
                         .input('OwnerEmail',sql.Char,`${email}`)
                         .query('select SelectEmail from  Tx_Select where OwnerEmail=@OwnerEmail');
         const JsonFormat = JSON.parse(JSON.stringify(resultado))
+        console.log(JsonFormat)
+
+
         if(JsonFormat.recordset[0]==undefined){
             pool.close();
             return false;

@@ -119,12 +119,15 @@ app.post('/shared_cert',cors(),async(req,res)=>{
     if(status['email_verified'] == 'true'){
         let db_data=await shared_cert(email);
         console.log(db_data);
-        let listsize=db_data.rowsAffected[0];
-        for(let i=0;i<listsize;i++){
-            list.push(db_data.recordset[i].SelectEmail);
+        if(db_data === false){
+            return res.send('not data');
         }
-        return res.send(list);
-       
+        else{
+            for(let i=0;i<listsize;i++){
+                list.push(db_data.recordset[i].SelectEmail);
+            }
+            return res.send(list);
+        }
     }else{
         return res.json({status : 'not share' });
     }

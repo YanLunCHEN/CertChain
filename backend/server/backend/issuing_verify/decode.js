@@ -4,6 +4,7 @@ let data= fs.readFileSync('C:/Users/nulc9/Desktop/server/BlockchainFile/pem/priv
 function verifytoken(token) {
     return (new Promise((resolve, reject) => {
         jwt.verify(token , data ,(err, decoded)=>{
+            console.log(decoded);
             if(err) reject(err);
             resolve(decoded);
         })  

@@ -1,4 +1,4 @@
-import  express from 'express';
+import  express, { json } from 'express';
 import  bodyParser  from 'body-parser';
 import  { SelectIsuingpermission }  from './DataBase/sql.js';
 import  cors  from 'cors';
@@ -7,6 +7,11 @@ import pkg from 'morgan';
 import { verifytoken} from './backend/issuing_verify/decode.js';
 import { token } from './backend/issuing_verify/encode.js';
 import { insert }  from './BlockchainFile/process_data.js'
+
+import fs from 'fs'; 
+
+
+
 const app =new  express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -25,9 +30,10 @@ app.post('/SignInIns',cors(),(async (req, res) => {
         console.log(ISEMAIL)
         return res.send('Account err');
     } else{
-        let db_data =ISEMAIL.recordset[0];
+        let db_data = ISEMAIL.recordset[0];
+        console.log(db_data);
         let access_token= token(db_data);
-        console.log(access_token);
+        console.log("ACCESS :::::: " ,access_token);
         //console.log(access_token);
         return res.json({status : 'success' , access_token : access_token} )
     } 
@@ -40,11 +46,14 @@ app.post('/SignInIns',cors(),(async (req, res) => {
 * catch xlsx to path file ; 
 */
 app.post('/InsertToBlockchain',async (req, res)=>{  
+    console.log(req);
     console.log("::::::::::::::::::::",req.headers.access_token);//前端要修
     let  callback = await verifytoken(req.headers.access_token);
+    console.log(callback);
     //console.log(req.files);
     //console.log("access" , callback);
     let email = callback.Email;
+    console.log(email); 
     if(callback){
         try{
             if(!req.files){
@@ -69,9 +78,17 @@ app.post('/InsertToBlockchain',async (req, res)=>{
 });
 
 app.post('/registe',(req, res)=>{
+    let filename= null ; 
     if(req){
-        console.log(req.body);
+        filename = req.body.RepresentInstitution;
+        const stream = fs.createWriteStream(`${filename}.txt`, "utf8");
+        stream.once('open', () => {
+            console.log(typeof req.body )
+            let g =JSON.stringify(req.body);
+            stream.write(g);
+        });
         return res.json({msg : 'sccess'});
+       
     }
     return res.json({msg : 'not sccuess'});
 });
