@@ -270,7 +270,7 @@ function User(){
     axios.post('/shared_cert',{ 
       access_token : accessToken,
     }).then(resp => { 
-      console.log(resp.data); 
+      console.log(resp.data);
       setSharedCertData(resp.data)
     }).catch(err=>{
       console.log(err);

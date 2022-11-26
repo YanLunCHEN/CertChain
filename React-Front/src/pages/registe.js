@@ -32,8 +32,8 @@ const Registe = () => {
       RepresentInstitution : values.RepresentInstitution,
       ContactPerson: values.ContactPerson,
       ContactEmail: values.ContactEmail,
-      ContactPhone: values.ContactPhone
-
+      ContactPhone: values.ContactPhone,
+      InsPubKey: values.InsPubKey
   }).then((res) => {
     console.log(res.data)
     navigate('/')
