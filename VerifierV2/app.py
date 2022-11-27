@@ -21,15 +21,13 @@ def index():
 	
 	
 	<h1>簽章與JsonDataHex驗證</h1>
-        <form method="POST" enctype="multipart/form-data" action="http://127.0.0.1:11000/verify">
-			
-            <label for="publickey">publickey</label>
-			<input accept=".cer,.pem,.der" id="publickey" name="publickey" type="file">
-			<!--<input type="text" name="publickey" id="publickey" value="value"></input>-->
-            <label for="signature">簽章</label>
-            <input type="text" name="signature" id="signature"></input>
-            <label for="json">JsonDataHex</label>
-            <input type="text" name="json" id="json"></input>
+        <form method="POST" enctype="multipart/form-data" action="http://127.0.0.1:11000/verify">	
+            <label for="publickey">Public key</label><br />
+	    <input accept=".pem" id="publickey" name="publickey" type="file"><br />
+            <label for="signature">Signature</label><br />
+            <input style="width:80em" type="text" name="signature" id="signature"></input><br />
+            <label for="json">JsonDataHex</label><br />
+            <input style="width:80em" type="text" name="json" id="json"></input><br />
             <input type="submit" value="Submit"></input> 
         </form>
 		
@@ -63,10 +61,28 @@ def verify():
         try:
             verifier.verify(hash, bytes.fromhex(signature))
             print("{'status': 'success','data':'true'}")
-            return jsonify({'status': 'success','data':'true'})
+            return '''<!DOCTYPE html>
+                      <html>
+                      <head>
+                      <title>簽章與JsonDataHex驗證</title>
+                      </head>
+                      <body>
+                      <h1>True</h1>
+                      <p><a href="http://localhost:11000/">Back to Verifier</a></p>
+                      </body>	
+                      </html>'''   
         except:
             print("{'status': 'success','data':'false'}")
-            return jsonify({'status': 'success','data':'false'})
+            return '''<!DOCTYPE html>
+                      <html>
+                      <head>
+                      <title>簽章與JsonDataHex驗證</title>
+                      </head>
+                      <body>
+                      <h1>False</h1>
+                      <p><a href="http://localhost:11000/">Back to Verifier</a></p>
+                      </body>	
+                      </html>'''
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=11000,threaded=True)

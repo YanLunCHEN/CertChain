@@ -2,3 +2,4 @@
 React-Front/node_modules/
 Express-Backend/node_modules/
 *node_modules/
+*package-lock.json

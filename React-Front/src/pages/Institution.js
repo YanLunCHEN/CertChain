@@ -52,6 +52,7 @@ function Institution() {
   const onSignoutSuccess = () => {
     alert("You have been logged out successfully");
     //console.clear();
+    localStorage.removeItem('InsAccessToken');
     global.inslogininfo.statas = false
     console.log(global.inslogininfo.statas )
     setloginstatus(false)
@@ -91,74 +92,11 @@ function Institution() {
         </Space>
       </Content>
       </Layout>
-      
-      <Footer>
-      <Carousel autoplay>
-      <div>
-        <Image width={500}
-        src="https://csie.au.edu.tw/var/file/52/1052/pictures/507/m/mczh-tw1000x1000_large9469_756704868140.jpg"
-        />
-        </div>
-        <div>
-        <Image width={500}
-        src="https://csie.au.edu.tw/var/file/52/1052/pictures/240/m/mczh-tw1000x1000_large15034_519244718308.jpg"
-        />
-        </div>
-        <div>
-        <Image width={500}
-        src="https://csie.au.edu.tw/var/file/52/1052/pictures/515/m/mczh-tw1000x1000_large15035_696029119003.jpg"
-        />
-        </div>
-      <div>
-        <Image width={500}
-        src="https://csie.au.edu.tw/var/file/52/1052/pictures/608/m/mczh-tw1000x1000_large15036_469164619113.jpg"
-        />
-        </div>
-      <div>
-        <Image width={500}
-        src="https://csie.au.edu.tw/var/file/52/1052/pictures/110/m/mczh-tw1000x1000_large15037_353318919159.jpg"
-        />
-       </div>
-      <div>
-        <Image width={500}
-        src="https://csie.au.edu.tw/var/file/52/1052/pictures/550/m/mczh-tw1000x1000_large14995_960798487071.jpg"
-        />
-        </div>
-      <div>
-        <Image width={500}
-        src="https://csie.au.edu.tw/var/file/52/1052/pictures/114/m/mczh-tw1000x1000_large14996_202953287273.jpg"
-        />
-        </div>
-      <div>
-        <Image width={500}
-        src="https://csie.au.edu.tw/var/file/52/1052/pictures/389/m/mczh-tw1000x1000_large15038_296158019511.jpg"
-        />
-        </div>
-      <div>
-        <Image width={500}
-        src="https://csie.au.edu.tw/var/file/52/1052/pictures/916/m/mczh-tw1000x1000_large15039_579163619645.jpg"
-        />
-        </div>
-      <div>
-        <Image width={500}
-        src="https://csie.au.edu.tw/var/file/52/1052/pictures/816/m/mczh-tw1000x1000_large15040_115928819891.jpg"
-        />
-        </div>
-      <div>
-        <Image width={500}
-        src="https://csie.au.edu.tw/var/file/52/1052/pictures/571/m/mczh-tw1000x1000_large15041_5325520096.jpg"
-        />
-        </div>
-      <div>
-        <Image width={500}
-        src="https://csie.au.edu.tw/var/file/52/1052/pictures/653/m/mczh-tw1000x1000_large15043_412559720798.jpg"
-        />
-        </div>
-      </Carousel>
-      <p>Designed by AUCSIE</p>
-      </Footer>
-
-        </Layout>
+      <br />
+      <center><iframe width="800px" height="500px"  src="https://www.youtube.com/embed/Lv3HKITlfZ4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
+        
+      </Layout>
+        <p>Designed by AUCSIE</p>
   </div>
   
   )
