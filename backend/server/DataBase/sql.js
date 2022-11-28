@@ -278,10 +278,29 @@ async function shared_cert(email){
         throw new Error(err);
     }
 }
-
+async function selectOwnerSharedCert(email){
+    try{
+        let pool = await sql.connect(config)
+        const resultado = await pool.request()
+                        .input('Email',sql.Char,`${email}`)
+                        .query('select * from Tx_Squence where Email=@Email');
+        var JsonFormat=JSON.parse(JSON.stringify(resultado))
+        if(JsonFormat.recordset[0] != undefined){
+            pool.close();
+            return JsonFormat;
+        }
+        else{
+            pool.close();
+            return false;
+        }
+    }catch(err){
+        console.log(err);
+        throw new Error(err);
+    }
+}
 
 
 module.exports =  { selectAccount , SelectIsuingpermission  ,SelectAccountForApply, shared_cert,
-              CreateBlockchainHash,select_all_owner,insertAgreeselect ,select_tx_select ,select_key ,select_tx_select_Email ,selectAccountToShares};
+              CreateBlockchainHash,select_all_owner,insertAgreeselect ,select_tx_select ,select_key ,select_tx_select_Email ,selectAccountToShares,selectOwnerSharedCert};
 
  

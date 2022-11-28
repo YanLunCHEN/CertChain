@@ -1,6 +1,6 @@
 import  express from 'express';
 import  bodyParser  from 'body-parser';
-import  { selectAccount   ,select_all_owner, select_tx_select , select_tx_select_Email ,selectAccountToShares,insertAgreeselect,shared_cert}  from './DataBase/sql.js';
+import  { selectAccount   ,select_all_owner, select_tx_select , select_tx_select_Email ,selectAccountToShares,insertAgreeselect,shared_cert,selectOwnerSharedCert}  from './DataBase/sql.js';
 import {produceDate} from './DataBase/share_date.js'
 import catchDate from './BlockchainFile/catch_date.js';
 import  cors  from 'cors';
@@ -98,20 +98,24 @@ app.post('/share_my_cert',cors(),async (req,res)=>{
     let stat =await verifyToken( req.body.access_token);
     let email = stat['email']; 
     let status = await selectAccountToShares(createEmail);
-    
-    if(status == true ){
-        let produce = await produceDate(insertDate);
-        let date        = catchDate();  
-        let sql_status =await insertAgreeselect(email,createEmail,date,produce);
-        if(sql_status == true){
-            return res.json({status : "insertAgressselect success"});
-        }else{
-            return res.json({status : 'insertAgressselect reject ' });
+    let iscert = selectOwnerSharedCert(email);
+    if(iscert){
+        if(status == true ){
+            let produce = await produceDate(insertDate);
+            let date        = catchDate();  
+            let sql_status =await insertAgreeselect(email,createEmail,date,produce);
+            if(sql_status == true){
+                return res.json({status : "insertAgressselect success"});
+            }else{
+                return res.json({status : 'insertAgressselect reject ' });
+            }
         }
+        else{
+            return  res.json({status : 'createEmail not in db' });
+        } 
     }
-    else{
-        return  res.json({status : 'createEmail not in db' });
-    }
+    else{return res.json({status : 'You do not have cert' })}
+    
 })
 app.post('/shared_cert',cors(),async(req,res)=>{
     let status = await verifyToken( req.body.access_token);
