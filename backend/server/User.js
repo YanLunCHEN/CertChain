@@ -46,6 +46,7 @@ app.post('/get_others_certificate',cors(),async(req,res)=>{
         console.log("get_Other:",data)
         if(data !== false){
             let db_data = await select_tx_select_Email(email);
+            console.log("dbbbb:",db_data)
             let listsize=db_data.rowsAffected[0];
             for(let i=0;i<listsize;i++){
                 list.push(db_data.recordset[i].OwnerEmail);
@@ -113,12 +114,13 @@ app.post('/share_my_cert',cors(),async (req,res)=>{
     }
 })
 app.post('/shared_cert',cors(),async(req,res)=>{
-    let status =await verifyToken( req.body.access_token);
+    let status = await verifyToken( req.body.access_token);
     let email = status['email'];
     let list=[];
     if(status['email_verified'] == 'true'){
         let db_data=await shared_cert(email);
         console.log(db_data);
+        let listsize=db_data.rowsAffected[0];
         if(db_data === false){
             return res.send('not data');
         }

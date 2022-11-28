@@ -1,4 +1,6 @@
 .App {
+  height: 1200px;
+  width: 100%;
   text-align: center;
   background: rgba(150, 150, 150, 0.2);
 }

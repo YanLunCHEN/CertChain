@@ -20,37 +20,37 @@ function clickMe() {
   alert("Success!");
 }
 
-const props = {
-  name: 'file',
-  action: 'http://218.161.4.208:5000/InsertToBlockchain',
-  headers: {
-    authorization: 'authorization-text',
-    access_token : localStorage.getItem('InsAccessToken'),
-  },
-  body:{
-    access_token : localStorage.getItem('InsAccessToken'),
-  },
-
-  onChange(info) {
-    console.log(info.file.status)
-    if (info.file.status !== 'uploading') {
-      console.log(info.file, info.fileList);
-    }
-
-    if (info.file.status === 'done') {
-      message.success(`${info.file.name} file uploaded successfully`);
-    } else if (info.file.status === 'error') {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-};
 
 
 function Institution() {
+  const props = {
+    name: 'file',
+    action: 'http://218.161.4.208:5000/InsertToBlockchain',
+    headers: {
+      authorization: 'authorization-text',
+      access_token : localStorage.getItem('InsAccessToken'),
+    },
+    body:{
+      authorization: 'authorization-text',
+      access_token : localStorage.getItem('InsAccessToken'),
+    },
   
+    onChange(info) {
+      console.log(info.file.status)
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+  
+      if (info.file.status === 'done') {
+        message.success(`${info.file.name} file uploaded successfully`);
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+  };
   const [showloginstatus, setloginstatus] = useState(global.inslogininfo.statas);
   const accessToken = localStorage.getItem('InsAccessToken');
-  
+  console.log("access token = "+accessToken);
   const onSignoutSuccess = () => {
     alert("You have been logged out successfully");
     //console.clear();
@@ -63,8 +63,8 @@ function Institution() {
   return (
     
   <div className="App">
-    
-      <Layout>
+    <div>
+      
       
        <Layout>
 
@@ -93,11 +93,11 @@ function Institution() {
         </Button>
         </Space>
       </Content>
-      </Layout>
-      <br />
-      <center><iframe width="800px" height="500px"  src="https://www.youtube.com/embed/Lv3HKITlfZ4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
-        
-      </Layout>
+
+      <br /><div width="100%"  height= "520px">
+      <center><iframe width="80%" height= "420px" src="https://www.youtube.com/embed/Lv3HKITlfZ4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
+      </div>
+      </Layout></div> 
         <p>Designed by AUCSIE</p>
   </div>
   
