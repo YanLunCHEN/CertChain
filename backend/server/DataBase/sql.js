@@ -287,7 +287,7 @@ async function selectOwnerSharedCert(email){
         var JsonFormat=JSON.parse(JSON.stringify(resultado))
         if(JsonFormat.recordset[0] != undefined){
             pool.close();
-            return JsonFormat;
+            return true;
         }
         else{
             pool.close();

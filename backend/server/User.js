@@ -98,7 +98,8 @@ app.post('/share_my_cert',cors(),async (req,res)=>{
     let stat =await verifyToken( req.body.access_token);
     let email = stat['email']; 
     let status = await selectAccountToShares(createEmail);
-    let iscert = selectOwnerSharedCert(email);
+    let iscert = await selectOwnerSharedCert(email);
+    console.log(iscert);
     if(iscert){
         if(status == true ){
             let produce = await produceDate(insertDate);
