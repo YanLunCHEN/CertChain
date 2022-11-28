@@ -26,6 +26,7 @@ async function delete_Tx_Sequence(){
             return JsonFormat;
         }
     }catch(err){
+        //pool.close();
         console.log(err);
         throw new Error(err);
     }
@@ -48,10 +49,14 @@ async function delete_Tx_Select(){
             return JsonFormat;
         }
     }catch(err){
+        //pool.close();
         console.log(err);
         throw new Error(err);
     }
 }
-
-delete_Tx_Sequence();
-delete_Tx_Select();
+try{
+    delete_Tx_Sequence();
+    delete_Tx_Select();
+}catch(err){
+console.log(err);
+}

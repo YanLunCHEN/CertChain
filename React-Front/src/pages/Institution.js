@@ -24,10 +24,12 @@ const props = {
   name: 'file',
   action: 'http://218.161.4.208:5000/InsertToBlockchain',
   headers: {
-    //authorization: 'authorization-text',
+    authorization: 'authorization-text',
     access_token : localStorage.getItem('InsAccessToken'),
   },
-  
+  body:{
+    access_token : localStorage.getItem('InsAccessToken'),
+  },
 
   onChange(info) {
     console.log(info.file.status)
