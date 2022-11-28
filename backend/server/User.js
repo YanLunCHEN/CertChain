@@ -118,18 +118,26 @@ app.post('/shared_cert',cors(),async(req,res)=>{
     let email = status['email'];
     let list=[];
     if(status['email_verified'] == 'true'){
-        let db_data=await shared_cert(email);
-        console.log(db_data);
-        let listsize=db_data.rowsAffected[0];
-        if(db_data === false){
+        
+        try {
+            let db_data=await shared_cert(email);
+            console.log(db_data);
+            let listsize=db_data.rowsAffected[0];
+            console.log(listsize);
+            if(db_data === false){
+                return res.send('not data');
+            }
+            else{
+                for(let i=0;i<listsize;i++){
+                    list.push(db_data.recordset[i].SelectEmail);
+                }
+                return res.send(list);
+            }
+        } catch (error) {
             return res.send('not data');
         }
-        else{
-            for(let i=0;i<listsize;i++){
-                list.push(db_data.recordset[i].SelectEmail);
-            }
-            return res.send(list);
-        }
+        
+        
     }else{
         return res.json({status : 'not share' });
     }
