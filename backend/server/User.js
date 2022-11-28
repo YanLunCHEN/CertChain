@@ -98,7 +98,11 @@ app.post('/share_my_cert',cors(),async (req,res)=>{
     let stat =await verifyToken( req.body.access_token);
     let email = stat['email']; 
     let status = await selectAccountToShares(createEmail);
-    let iscert = selectOwnerSharedCert(email);
+    let iscert = await selectOwnerSharedCert(email);
+    if(email===createEmail){
+        return res.json({status : 'You can\'t share your cert by yourself'});
+    }
+    console.log(iscert);
     if(iscert){
         if(status == true ){
             let produce = await produceDate(insertDate);
@@ -126,12 +130,14 @@ app.post('/shared_cert',cors(),async(req,res)=>{
         try {
             let db_data=await shared_cert(email);
             console.log(db_data);
+            
             let listsize=db_data.rowsAffected[0];
             console.log(listsize);
             if(db_data === false){
                 return res.send('not data');
             }
             else{
+                
                 for(let i=0;i<listsize;i++){
                     list.push(db_data.recordset[i].SelectEmail);
                 }

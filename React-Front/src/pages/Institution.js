@@ -95,7 +95,7 @@ function Institution() {
       </Content>
 
       <br /><div width="100%"  height= "520px">
-      <center><iframe width="80%" height= "420px" src="https://www.youtube.com/embed/Lv3HKITlfZ4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
+      <center><iframe width="1080px" height="720px" src="https://www.youtube.com/embed/z6bQruoUhAg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
       </div>
       </Layout></div> 
         <p>Designed by AUCSIE</p>

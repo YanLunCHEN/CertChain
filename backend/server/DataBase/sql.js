@@ -132,7 +132,7 @@ async function select_tx_select(Email){
         }
     }catch(err){
         console.log(err);
-        throw new Error(err);
+        //throw new Error(err);
     }
 }
 async function select_tx_select_Email(owner){
@@ -287,7 +287,7 @@ async function selectOwnerSharedCert(email){
         var JsonFormat=JSON.parse(JSON.stringify(resultado))
         if(JsonFormat.recordset[0] != undefined){
             pool.close();
-            return JsonFormat;
+            return true;
         }
         else{
             pool.close();

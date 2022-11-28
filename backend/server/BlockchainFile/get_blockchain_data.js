@@ -157,14 +157,17 @@ const contract_address = '0x035f2398c7f623f6d61c0fc56830d1bf6866dec0';
 var privatekey = '3ea49ecb8772c963968482006c6e12512bbc30be588105a047a50d45dc2ea4f5';
 var rpcurl = 'https://goerli.infura.io/v3/173c456332bf465b8acce7a4a47167ec';
 var address = '0x404D9a1Aa9216Cf64DaeC40e7368D9c741f3f560';
-try {
-    var provider = new Provider(privatekey, rpcurl);
-    var web3 = new Web3(provider); 
-} catch (error) {
-    provider = new Provider(privatekey, rpcurl);
-    web3 = new Web3(provider);
-}
- 
+
+var provider = new Provider(privatekey, rpcurl);
+var web3 = new Web3(provider); 
+provider.engine._blockTracker.on('error', function (e) {
+    console.log('BlockTracker error', e);
+    console.log(e);
+});
+provider.engine.on('error', function (e) {
+    console.log('Web3ProviderEngine error');
+    console.log(e);
+});
 var myContract = new web3.eth.Contract(contract_abi, contract_address);
 
  function  get_BlockChainHash(index){

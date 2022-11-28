@@ -21,7 +21,7 @@ def index():
 	
 	
 	<h1>簽章與JsonDataHex驗證</h1>
-        <form method="POST" enctype="multipart/form-data" action="http://127.0.0.1:11000/verify">	
+        <form method="POST" enctype="multipart/form-data" action="http://127.0.0.1:13000/verify">	
             <label for="publickey">Public key</label><br />
 	    <input accept=".pem" id="publickey" name="publickey" type="file"><br />
             <label for="signature">Signature</label><br />
@@ -68,7 +68,7 @@ def verify():
                       </head>
                       <body>
                       <h1>True</h1>
-                      <p><a href="http://localhost:11000/">Back to Verifier</a></p>
+                      <p><a href="http://localhost:13000/">Back to Verifier</a></p>
                       </body>	
                       </html>'''   
         except:
@@ -80,7 +80,7 @@ def verify():
                       </head>
                       <body>
                       <h1>False</h1>
-                      <p><a href="http://localhost:11000/">Back to Verifier</a></p>
+                      <p><a href="http://localhost:13000/">Back to Verifier</a></p>
                       </body>	
                       </html>'''
 

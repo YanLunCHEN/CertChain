@@ -70,7 +70,7 @@ app.post('/InsertToBlockchain',async (req, res)=>{
                 }
             }
         }catch(err){
-            console.log("catcherr0000000000000"+err);
+            console.log("catch err InsertToBlockchain: "+err);
             
         }
     }else{
