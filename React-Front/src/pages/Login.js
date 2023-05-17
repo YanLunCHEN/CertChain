@@ -2,7 +2,7 @@
 import './App.css';
 import loginstate from '../routes/ProtectedRoutes';
 //import React from "react";
-import {GoogleLogout ,GoogleLogin} from "react-google-login";
+// import {GoogleLogout ,GoogleLogin} from "react-google-login";
 import React, { useState } from 'react';
 import { Layout } from 'antd';
 import User from "./User";

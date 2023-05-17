@@ -17,16 +17,21 @@ import ProtecteduserRoute from './routes/ProtecteduserRoute'
 import ProtectedinsRoute from './routes/ProtectedinsRoute'
 import './logininfo.js';
 import Registe from './pages/registe'
+import { GoogleOAuthProvider } from '@react-oauth/google';
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
           <Route path="/" element={<Layout2 />}/>
-          <Route path="/Userlogin" element={<UserLogin />} />
+          
+          <Route path="/Userlogin" element={<GoogleOAuthProvider clientId="100559822787-ffbh8kditc4o92h0jnghut5t882mr9pq.apps.googleusercontent.com">
+          <UserLogin /></GoogleOAuthProvider>} />
+          
           <Route path="/Institutionlogin" element={<InstitutionLogin2 />} />
           <Route path="/Registe" element={<Registe />} />
           <Route path="/user" element={
             <ProtecteduserRoute>
+              
             <User></User> 
             </ProtecteduserRoute>}/>
           <Route path="/institution" element={

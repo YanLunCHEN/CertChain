@@ -5,7 +5,7 @@ import { Layout , Row,Col} from 'antd';
 import { Typography } from 'antd';
 import { Carousel } from 'antd';
 import { Image } from 'antd';
-import { GoogleLogout } from "react-google-login";
+// import { GoogleLogout } from "react-google-login";
 import { useState } from 'react';
 import { Navigate} from "react-router-dom"
 import '../logininfo.js';
@@ -146,7 +146,7 @@ function User(){
         access_token : accessToken,
       }).then(resp => {  
         //let othersCertList = resp.data;
-        //console.log("**************"+resp.data);
+        console.log("**************"+resp.data.status);
         if(resp.data.status ==="not certificate"){
           alert(resp.data.status);
           setShowOthersCert(false);
@@ -383,7 +383,7 @@ function User(){
         <Button size="large" onClick={getShareCertPage}>
           分享證書
         </Button>
-        <GoogleLogout
+        {/* <GoogleLogout
           render={renderProps => (
           <Button size="large" onClick={renderProps.onClick} disabled={renderProps.disabled}>登出</Button>
           )}
@@ -391,7 +391,7 @@ function User(){
           buttonText="Sign Out"
           onLogoutSuccess={onSignoutSuccess}
           onSignoutFailure={onSignoutFailure}
-        ></GoogleLogout>
+        ></GoogleLogout> */}
       { showloginstatus ?
           null
           : <Navigate to="/"/>

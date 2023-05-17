@@ -6,7 +6,8 @@ import catchDate from './BlockchainFile/catch_date.js';
 import  cors  from 'cors';
 import fileUpload from 'express-fileupload';
 import { ProcessingList } from './BlockchainFile/ProcessingList.js';
-import { verifyToken } from './backend/verifyToken.js';
+// import { verifyToken } from './backend/verifyToken.js';
+import { verify } from './backend/Ins_verify.js';
 import  {get_BlockChainHash}  from './BlockchainFile/get_blockchain_data.js'
 import {decode} from './BlockchainFile/decode.js'
 const app =new  express();
@@ -21,9 +22,9 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.post('/SignInUser',cors(),async (req,res)=>{//success 
     //console.log(1);
     console.log("req.body.access_token: " + req.body.access_token);   
-    let verify_status=await verifyToken( req.body.access_token);
+    let verify_status=await verify( req.body.access_token);
     let status=verify_status["email_verified"]
-    if(status == 'true' ){
+    if(status == true ){
         let sql_status =selectAccount(req.body.name ,req.body.email);
         if(sql_status == true){
             return res.json({msg : 'sql_status'});
@@ -39,9 +40,9 @@ app.post('/SignInUser',cors(),async (req,res)=>{//success
 
 app.post('/get_others_certificate',cors(),async(req,res)=>{
     let list=[];
-    let status =await verifyToken( req.body.access_token);
+    let status =await verify( req.body.access_token);
     let email = status['email'];
-    if(status['email_verified'] == 'true'){
+    if(status['email_verified'] == true){
         let data = await select_tx_select(email);
         console.log("get_Other:",data)
         if(data !== false){
@@ -59,15 +60,16 @@ app.post('/get_others_certificate',cors(),async(req,res)=>{
         }
     }
     else{
-        return res.json({msg : 'Access Token Error'});   
+        return res.json({status : 'Access Token Error'});   
     }
 });
 
 app.post('/get_my_certificate',async (req,res)=>{ //success
-    let status =await verifyToken( req.body.access_token);
+    let status =await verify( req.body.access_token);
     let email = status['email'];
-    if(status['email_verified'] == 'true'){
-    let sql_Tx_Id=  await select_all_owner(email)
+    console.log(status['email_verified'])
+    if(status['email_verified'] == true){
+        let sql_Tx_Id=  await select_all_owner(email)
         if(sql_Tx_Id){
             let Tx_id = await get_BlockChainHash(email);
             if(Tx_id ){
@@ -95,7 +97,7 @@ app.post('/get_my_certificate',async (req,res)=>{ //success
 app.post('/share_my_cert',cors(),async (req,res)=>{
     const createEmail = req.body.createEmail;
     const insertDate = req.body.date ;
-    let stat =await verifyToken( req.body.access_token);
+    let stat =await verify( req.body.access_token);
     let email = stat['email']; 
     let status = await selectAccountToShares(createEmail);
     let iscert = await selectOwnerSharedCert(email);
@@ -122,10 +124,10 @@ app.post('/share_my_cert',cors(),async (req,res)=>{
     
 })
 app.post('/shared_cert',cors(),async(req,res)=>{
-    let status = await verifyToken( req.body.access_token);
+    let status = await verify( req.body.access_token);
     let email = status['email'];
     let list=[];
-    if(status['email_verified'] == 'true'){
+    if(status['email_verified'] == true){
         
         try {
             let db_data=await shared_cert(email);
