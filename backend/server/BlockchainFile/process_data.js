@@ -11,8 +11,17 @@ async function insert(filename,email){
     return(new Promise(async (resolve, reject) =>{
         console.log("filename :::: " , filename);
         let transaction_InFo =await  readFile(filename ,email);
-        console.log(transaction_InFo);
+        console.log("+++++++++++++++++++++++++++++++++++++++++++")
+        console.log("+++++++++++++++++++++++++++++++++++++++++++")
+        console.log("+++++++++++++++++++++++++++++++++++++++++++")
+        console.log(transaction_InFo)
+        console.log("--------------------------------------------")
+        console.log("--------------------------------------------")
+        console.log("--------------------------------------------")
         let status = await Processing(transaction_InFo);
+        console.log("============================================")
+        console.log("============================================")
+        console.log("============================================")
         if(status){
            let stat=to_blockchain();
            resolve(stat) ; 
@@ -22,6 +31,7 @@ async function insert(filename,email){
 
 function Processing(transaction_InFo){
     return(new Promise((resolve, reject)=>{
+        console.log(transaction_InFo);
         length=transaction_InFo.length-1;
         console.log(length);
         for(let i=1 ; i<transaction_InFo.length -1 ; i++){ 
@@ -40,18 +50,25 @@ function Processing(transaction_InFo){
                                 dies.push(die);
                                 break;
                 }
+                console.log("EMaillllll"+email)
             }
         }
+        console.log("Proccessing successssssss")
         resolve(true);
 
     }))
 }
 async function to_blockchain(){
+    console.log("to bcccccccccccc");
     await reject_bc(array,email);
+    console.log("to bc successsss "+email)
     for(let i=0 ;i < email.length;i++){
+        console.log("for looppppppp")
         let time =catchDate();
+        console.log(email[i],time);
         CreateBlockchainHash(email[i],time);
     }
+    console.log("for loop enddddd")
     return true ;
     
 }

@@ -47,8 +47,8 @@ app.post('/SignInIns',cors(),(async (req, res) => {
 */
 app.post('/InsertToBlockchain',async (req, res)=>{  
     console.log(req);
-    console.log("::::::::::::::::::::",req.headers.access_token);//前端要修
-    let  callback = await verifytoken(req.headers.access_token);
+    console.log("::::::::::::::::::::",req.headers.authorization);//前端要修
+    let  callback = await verifytoken(req.headers.authorization);
     console.log(callback);
     //console.log(req.files);
     //console.log("access" , callback);
@@ -63,6 +63,7 @@ app.post('/InsertToBlockchain',async (req, res)=>{
                 let avatar =req.files.file;
                 let  statice = await MoveFile(avatar);
                 if(statice== true ){
+                    console.log('&&&&&&&&&&&&&')
                     let status = await insert(avatar.name , email );
                     if(status){
                         res.json({msg : 'reject sucess'});

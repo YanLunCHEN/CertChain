@@ -210,7 +210,7 @@ async function CreateBlockchainHash(Email  ,Time ){
                         .input('Email',sql.VarChar,`${Email}`)
                         .input('Times',sql.VarChar,`${Time}`)
                         .query('INSERT INTO dbo.Tx_Squence VALUES (@Email,@Times)');
-            console.log(resultado)
+            console.log("CreateBlockchainHash "+resultado)
             pool.close();
             return true;
         }catch(err){

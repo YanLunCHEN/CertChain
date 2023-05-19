@@ -25,10 +25,10 @@ function clickMe() {
 function Institution() {
   const props = {
     name: 'file',
-    action: 'http://114.32.179.20:5000/InsertToBlockchain',
+    action: 'https://certchain.chang-cat.com/api/ins/InsertToBlockchain',
     headers: {
-      authorization: 'authorization-text',
-      access_token : localStorage.getItem('InsAccessToken'),
+      authorization: localStorage.getItem('InsAccessToken'),
+      // access_token : localStorage.getItem('InsAccessToken'),
     },
     body:{
       authorization: 'authorization-text',
