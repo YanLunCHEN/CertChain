@@ -1,8 +1,8 @@
 const sql = require('mssql');
 let  config ={
-    user:'Darker',
-    password:'Fet02201215',
-    server:'114.32.250.105',
+    user:'backend',
+    password:'test123456',
+    server:'114.32.179.20',
     database : 'AU',
     options:{
         trustedConnection : false , 
